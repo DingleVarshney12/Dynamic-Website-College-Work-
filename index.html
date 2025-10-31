@@ -1,100 +1,168 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>My Styled Webpage</title>
+  <head>
+    <title>DYNAMIC FORM VALIDATION WITH JS</title>
     <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body{
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
-        header{
-            height: 70px;
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-        a{
-            color: inherit;
-            text-decoration: none;
-        }
-        header div{
-            font-size: 24px;
-            font-weight: bold;
-        }
-        header nav {
-            display: flex;
-            gap: 15px;  
-        }
-        main{
-            height: 100vh;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            padding: 40px 0;
-        }
-        form{
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-        input{
-            height: 50px;
-            border-radius: 60px;
-            width: 300px;
-            outline: none;
-            border: none;
-            padding: 10px 30px;
-            box-shadow:0 0 10px 2px rgba(0,0,0,0.1), inset 0 0 10px 2px rgba(0,0,0,0.1);
-        }
-        button{
-            height: 50px;
-            border-radius: 60px;
-            width: 300px;
-            outline: none;
-            border: none;
-            padding: 10px 30px;
-            box-shadow:0 0 10px 2px rgba(0,0,0,0.1), inset 0 0 10px 2px rgba(0,0,0,0.1);
-            background: #2c5dff;
-            font-size: 18px;
-            color: white;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+      }
+      header {
+        height: 70px;
+        background-color: #333;
+        color: white;
+        padding: 10px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      header div {
+        font-size: 24px;
+        font-weight: bold;
+      }
+      header nav {
+        display: flex;
+        gap: 15px;
+      }
+      main {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 40px 0;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+      input {
+        height: 50px;
+        border-radius: 60px;
+        width: 300px;
+        outline: none;
+        border: none;
+        padding: 10px 30px;
+        box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1),
+          inset 0 0 10px 2px rgba(0, 0, 0, 0.1);
+      }
+      button {
+        height: 50px;
+        border-radius: 60px;
+        width: 300px;
+        outline: none;
+        border: none;
+        padding: 10px 30px;
+        box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1),
+          inset 0 0 10px 2px rgba(0, 0, 0, 0.1);
+        background: #2c5dff;
+        font-size: 18px;
+        color: white;
+      }
+      .error {
+        color: red;
+        font-size: 14px;
+        margin-left: 10px;
+      }
+      .field {
+        display: flex;
+        flex-direction: column;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <div>
-            My site 
-        </div>
-        <nav>
-            <a href="#">
-                Home
-            </a>
-            <a href="#">
-                About
-            </a>
-            <a href="#">
-                Contact
-            </a>
-        </nav>
+      <div>My site</div>
+      <nav>
+        <a href="#"> Home </a>
+        <a href="#"> About </a>
+        <a href="#"> Contact </a>
+      </nav>
     </header>
     <main>
-        <section>
-            <form action="">
-                <input type="text" placeholder="Enter your name">
-                <input type="text" placeholder="Enter your email">
-                <input type="password" placeholder="Enter your password">
-                <button type="submit">sign in</button>
-            </form>
-        </section>
+      <section>
+        <form action="#">
+          <div class="field">
+            <input type="text" placeholder="Enter your name" id="name" />
+            <small class="error"></small>
+          </div>
+          <div class="field">
+            <input type="email" placeholder="Enter your email" id="email" />
+            <small class="error"></small>
+          </div>
+          <div class="field">
+            <input
+              type="password"
+              placeholder="Enter your password"
+              id="password"
+            />
+            <small class="error"></small>
+          </div>
+          <button type="submit">Sign in</button>
+        </form>
+      </section>
     </main>
-</body>
+    <script type="text/javascript">
+      const form = document.querySelector("form");
+      const nameInput = document.getElementById("name");
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+
+      function showError(input, message) {
+        input.style.borderColor = "red";
+        input.nextElementSibling.textContent = message;
+      }
+
+      function showSuccess(input) {
+        input.style.borderColor = "green";
+        input.nextElementSibling.textContent = "";
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        let isValid = true;
+
+        if (nameInput.value.trim() === "") {
+          showError(nameInput, "Name cannot be empty");
+          isValid = false;
+        } else {
+          showSuccess(nameInput);
+        }
+
+        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+        if (!emailPattern.test(emailInput.value.trim())) {
+          showError(emailInput, "Enter a valid email address");
+          isValid = false;
+        } else {
+          showSuccess(emailInput);
+        }
+
+        if (passwordInput.value.length < 6) {
+          showError(passwordInput, "Password must be at least 6 characters");
+          isValid = false;
+        } else {
+          showSuccess(passwordInput);
+        }
+
+        if (isValid) {
+          alert("Form submitted successfully!");
+          form.reset();
+          [nameInput, emailInput, passwordInput].forEach((input) => {
+            input.style.borderColor = "";
+            input.nextElementSibling.textContent = "";
+          });
+        }
+      });
+    </script>
+  </body>
 </html>
